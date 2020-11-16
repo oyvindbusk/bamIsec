@@ -1,3 +1,6 @@
+[![Build Status](https://github.com/oyvindbusk/bamIsec/workflows/tests/badge.svg?branch=master)](https://github.com/oyvindbusk/bamIsec/actions)
+
+
 # Nim script to intersect bam-file
 
 Takes a bam and vcf, and extracts all active regions from bam that have variants (+- 100 bp) in the vcf.
