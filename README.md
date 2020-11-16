@@ -1,4 +1,6 @@
-[![Build Status](https://github.com/oyvindbusk/bamIsec/workflows/tests/badge.svg?branch=master)](https://github.com/oyvindbusk/bamIsec/actions)
+<a href="https://github.com/oyvindbusk/bamIsec/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/oyvindbusk/bamIsec"></a> <a href="https://github.com/oyvindbusk/bamIsec/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/oyvindbusk/bamIsec"></a> [![Build Status](https://github.com/oyvindbusk/bamIsec/workflows/CI/badge.svg?branch=master)](https://github.com/oyvindbusk/bamIdex/actions) <a href="https://github.com/oyvindbusk/bamIsec/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/oyvindbusk/bamIsec"></a>
+
+
 
 
 # Nim script to intersect bam-file
@@ -7,7 +9,7 @@ Takes a bam and vcf, and extracts all active regions from bam that have variants
 
 ## Install:
 ```sh
-nimble build bamIsec.nimble
+nimble build -y
 ```
 
 Add path:
@@ -25,6 +27,8 @@ nim c --run src/bamIsec.nim
 samtools sort -o out.sorted.bam out.bam
 samtools index out.sorted.bam
 ```
+
+## Compile from source
 
 ### Genes in the dyt-list:
 * ANO3
