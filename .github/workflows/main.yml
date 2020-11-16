@@ -29,6 +29,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+
+      - name : install htslib
+      run: |
+        sudo apt-get update
+        sudo apt-get install git llvm curl wget libcurl4-openssl-dev autoconf
+        wget https://github.com/samtools/htslib/archive/1.11.tar.gz
+        tar xzf 1.11.tar.gz
+        cd htslib-1.11/
+        autoheader && autoconf && ./configure --disable-libcurl
+        sudo make -j4 install
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
@@ -38,3 +48,9 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      # Runs a single command using the runners shell
+      - name: test nim stuff
+      run: |
+        export LD_LIBRARY_PATH=/usr/local/lib/
+        nimble build -y
+        nimble test
