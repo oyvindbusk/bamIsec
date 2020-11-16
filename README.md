@@ -18,7 +18,7 @@ export LD_LIBRARY_PATH
 # Run like:
 nim c --run src/bamIsec.nim
 
-# Temporaryliy you have to sort and index
+# Temp - have to sort and index
 samtools sort -o out.sorted.bam out.bam
 samtools index out.sorted.bam
 ```
