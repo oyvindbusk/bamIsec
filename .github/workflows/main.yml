@@ -1,15 +1,14 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ master]
   pull_request:
     branches: [ master ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -20,17 +19,22 @@ jobs:
         nimversion:
         - stable
         - devel
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
     - uses: iffy/install-nim@v1.1
       with:
         nimversion: ${{ matrix.nimversion }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+    - uses: actions-rs/cargo@v1
 
-
-      - name : install htslib
+    - name : install htslib
       run: |
         sudo apt-get update
         sudo apt-get install git llvm curl wget libcurl4-openssl-dev autoconf
@@ -39,18 +43,17 @@ jobs:
         cd htslib-1.11/
         autoheader && autoconf && ./configure --disable-libcurl
         sudo make -j4 install
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-      # Runs a single command using the runners shell
-      - name: test nim stuff
+    # Runs a single command using the runners shell
+    - name: test nim stuff
       run: |
         export LD_LIBRARY_PATH=/usr/local/lib/
         nimble build -y
         nimble test
+
+    # Runs a set of commands using the runners shell
+    - name: test javascript stuff
+      run: |
+        npm install mocha
+        npm test
+
