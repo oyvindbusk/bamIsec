@@ -1,4 +1,4 @@
-name: CI
+name: tests
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -24,13 +24,9 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    - uses: alaviss/setup-nim@master
+    - uses: iffy/install-nim@v1.1
       with:
-        version: 'version-1-4' # The Nim nightly version branch to download
-        path: 'nim' # The directory relative to ${{ github.workspace }} 
-    - uses: actions/checkout@v2
-    - run: nimble build
+        nimversion: ${{ matrix.nimversion }}
 
     - uses: actions-rs/toolchain@v1
       with:
@@ -49,6 +45,7 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: test nim stuff
+      continue-on-error: ${{ matrix.nimversion == 'devel' }}
       run: |
         export LD_LIBRARY_PATH=/usr/local/lib/
         nimble build -y
