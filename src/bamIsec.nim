@@ -12,9 +12,9 @@ var
 
 proc bamisec_main() =
   let p = newParser("bamisec isec"):
-    option("--bam", default="", help="path to bam file")
+    option("--bam", default="tests/1731_20.bamout.bam", help="path to bam file")
     option("--vcf", default="tests/Dystoni.vcf", help="path to vcf file")
-
+    option("--fasta", default="/illumina/runs_diag/prod_pipeline/genomes/H_sapiens/b37/human_g1k_v37.fasta", help="path to fasta file")
   var argv = commandLineParams()
   if len(argv) > 0 and argv[0] == "isec":
     argv = argv[1..argv.high]
@@ -32,37 +32,35 @@ proc bamisec_main() =
     echo p.help
     stderr.write_line "[bamIsec] --vcf is required."
     quit 1
+  if opts.fasta == "":
+    echo p.help
+    stderr.write_line "[bamIsec] --fasta is required."
+    quit 1
 
   # Open a vcf to get query coords:
   doAssert(open(v, opts.vcf))  
   # open a bam/cram and look for the index.
-  #doAssert(open(b, "tests/1731_20.bamout.bam", index=true, fai="/illumina/runs_diag/prod_pipeline/genomes/H_sapiens/b37/human_g1k_v37.fasta"))
+  doAssert(open(b, opts.bam, index=true, fai=opts.fasta))
   # Open a bam for writing
-  #doAssert(open(obam, "out.bam", mode="wb"))
+  doAssert(open(obam, "out.bam", mode="wb"))
 
   
   # Write header:
-  #obam.write_header(b.hdr)
+  obam.write_header(b.hdr)
 
 
   # Iterate:
-  #for rec in v:  
-  #  for record in b.query($rec.CHROM, parseInt($rec.POS)-100, parseInt($rec.POS)+100 ):  
-  #    if record.mapping_quality > 10u:
-  #      obam.write(record)
+  for rec in v:  
+    for record in b.query($rec.CHROM, parseInt($rec.POS)-100, parseInt($rec.POS)+100 ):  
+      if record.mapping_quality > 10u:
+        obam.write(record)
 
-  
   
   v.close()
-  #b.close()
-  #obam.close()
+  b.close()
+  obam.close()
   echo opts.vcf
-  # Useful: stderr.write_line &"[seqcover] read {sample_d4s.len} sample coverage files"
   stderr.write_line &"[bamIsec] Finished"
-
-
-
-    
 
 proc main() =
   type pair = object
