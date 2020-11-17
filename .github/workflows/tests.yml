@@ -46,9 +46,12 @@ jobs:
     uses: alaviss/setup-nim@0.1.0
     with:
       # Which nightly-tracked branch should be fetched
-      version: # default is devel
+      version:
+        - devel
+        - stable
+
       # The path which the compiler will be downloaded to
-      path: # optional, default is nim
+      #path: # optional, default is nim
       # Whether the compiler should be added to PATH
       #add-to-path: # optional, default is true
 
