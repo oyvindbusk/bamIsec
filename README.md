@@ -3,8 +3,8 @@
 
 
 
-Accumulating collection of command-line tools to do things with bams and vcfs using hts-nim
-======================================================
+# Accumulating collection of command-line tools to do things with bams and vcfs using hts-nim
+
 
 <h4>
 Isec: Takes a bam and vcf, and extracts all active regions from bam that have variants (+- 100 bp) in the vcf.
