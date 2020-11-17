@@ -42,7 +42,7 @@ hts_nim_static_builder -n bamIsec.nimble -s src/bamIsec.nim
 
 
 ## Todo:
-- [ ] Make a static binary -> Release
+- [x] Make a static binary -> Release
 - [ ] Output sorted bam
 - [ ] Make unit tests
 - [ ] Make dockerfile
