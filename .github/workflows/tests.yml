@@ -50,10 +50,8 @@ jobs:
       # The path which the compiler will be downloaded to
       path: # optional, default is nim
       # Whether the compiler should be added to PATH
-      add-to-path: # optional, default is true
+      #add-to-path: # optional, default is true
 
-
-    
     - name : install htslib
       run: |
         sudo apt-get update
