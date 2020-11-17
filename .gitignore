@@ -1,3 +1,5 @@
 tests/1731_20.bamout.bam
 bamIsec
 src/bamIsec
+hts_nim_static_builder
+out.bam

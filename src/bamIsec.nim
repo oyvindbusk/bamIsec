@@ -59,7 +59,6 @@ proc bamisec_main() =
   v.close()
   b.close()
   obam.close()
-  echo opts.vcf
   stderr.write_line &"[bamIsec] Finished"
 
 proc main() =
