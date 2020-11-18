@@ -10,27 +10,25 @@
 Isec: Takes a bam and vcf, and extracts all active regions from bam that have variants (+- 100 bp) in the vcf.
 </h4>
 
+
+## Usage
+
+bamIsec should eventually contain multiple tools for manipulating vcf or bam files. Many of the problems might be better solved by other tools, as this is primarily a way for me to learn
+
+`isec` accepts a bam and a vcf, and extracts alignments from the bam in the positions (+-100 bp) where there exist variants in the vcf. The results are written to a new bam-file.
+
+Run isec:
+```
+bamIsec isec \
+--bam $bam \
+--vcf $vcf \
+--fasta $fasta
+```
+
 ## Install:
 
-```sh
-nimble build -y
-```
+Download the binary from the [releases](https://github.com/oyvindbusk/bamIsec/releases).
 
-Add path:
-```sh
-LD_LIBRARY_PATH=/usr/local/lib/
-export LD_LIBRARY_PATH
-```
-
-
-```sh
-# Run like:
-nim c --run src/bamIsec.nim
-
-# Temp - have to sort and index
-samtools sort -o out.sorted.bam out.bam
-samtools index out.sorted.bam
-```
 
 ## Compile from source
 Use the [static binary](https://github.com/brentp/hts-nim/releases/download/v0.2.8/hts_nim_static_builder) from https://github.com/brentp/hts-nim/#static-builds to build a binary without deps.
@@ -39,12 +37,25 @@ Use the [static binary](https://github.com/brentp/hts-nim/releases/download/v0.2
 hts_nim_static_builder -n bamIsec.nimble -s src/bamIsec.nim
 ```
 
-### Genes in the dyt-list:
-> ANO3, ATP1A3, CACNA1B, COL6A3, GCH1, GNAL, HPCA, KCTD17, KMT2B, MECR, PNKD, PRKRA, PRRT2, SGCE, SLC2A1, TAF1, THAP1, TOR1A
-
-
 ## Todo:
 - [x] Make a static binary -> Release
 - [ ] Output sorted bam
 - [ ] Make unit tests
 - [ ] Make dockerfile
+
+
+### Add path (temp - not needed if using binary):
+```sh
+LD_LIBRARY_PATH=/usr/local/lib/
+export LD_LIBRARY_PATH
+```
+
+### Genes in the dyt-list (temp):
+> ANO3, ATP1A3, CACNA1B, COL6A3, GCH1, GNAL, HPCA, KCTD17, KMT2B, MECR, PNKD, PRKRA, PRRT2, SGCE, SLC2A1, TAF1, THAP1, TOR1A
+
+### The output bam has to be sorted (hopefully temp):
+```sh
+# Temp - have to sort and index
+samtools sort -o out.sorted.bam out.bam
+samtools index out.sorted.bam
+```
