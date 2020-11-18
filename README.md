@@ -9,6 +9,7 @@
 <h4>
 Isec: Takes a bam and vcf, and extracts all active regions from bam that have variants (+- 100 bp) in the vcf.
 </h4>
+
 ## Install:
 
 ```sh
