@@ -5,6 +5,18 @@ import tables
 import strformat
 
 
+#[
+LD_LIBRARY_PATH=/usr/local/lib/
+export LD_LIBRARY_PATH
+
+vcf=tests/Dystoni.vcf
+bam=tests/1731_20.bamout.bam 
+fasta=/illumina/runs_diag/prod_pipeline/genomes/H_sapiens/b37/human_g1k_v37.fasta 
+
+nim c --run src/bamIsec.nim isec --bam $bam --vcf $vcf --fasta $fasta
+
+]#
+
 var
   v:VCF
   b:Bam
@@ -48,14 +60,17 @@ proc bamisec_main() =
   # Write header:
   obam.write_header(b.hdr)
 
-
   # Iterate:
-  for rec in v:  
-    for record in b.query($rec.CHROM, parseInt($rec.POS)-100, parseInt($rec.POS)+100 ):  
+  var r: seq[Record]
+  var c: int = 0
+  for rec in v:
+    r = @[]
+    for record in b.query($rec.CHROM, parseInt($rec.POS)-500, parseInt($rec.POS)+500 ):
+      
       if record.mapping_quality > 10u:
         obam.write(record)
-
-  
+    c += 1
+    
   v.close()
   b.close()
   obam.close()

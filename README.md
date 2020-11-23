@@ -39,6 +39,7 @@ hts_nim_static_builder -n bamIsec.nimble -s src/bamIsec.nim
 
 ## Todo:
 - [x] Make a static binary -> Release
+- [ ] Add small example bam
 - [ ] Output sorted bam
 - [ ] Make unit tests
 - [ ] Make dockerfile
@@ -59,3 +60,8 @@ export LD_LIBRARY_PATH
 samtools sort -o out.sorted.bam out.bam
 samtools index out.sorted.bam
 ```
+
+### Testing:
+vcf=tests/Dystoni.vcf
+bam=tests/1731_20.bamout.bam
+fasta=/illumina/runs_diag/prod_pipeline/genomes/H_sapiens/b37/human_g1k_v37.fasta
